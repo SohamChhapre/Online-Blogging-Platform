@@ -10,13 +10,15 @@ class SingleArticle extends React.Component {
     this.onClickLike = this.onClickLike.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
-  onClickLike() {
-    this.setState(prevstate => ({
-      toggle:!prevstate.toggle}))
+  
+  onClickLike(states) {
+    this.setState({toggle:states});
   }
+
   handleChange() {
     this.setState({value: this.refs.comment.value});
   }
+
   render() {
     return (
       <div>
@@ -129,11 +131,14 @@ class SingleArticle extends React.Component {
             <div className="align-left justify-content:left">
               <div className="align-left p-5">
                 <span><h4>Comment it Out!</h4></span>
-                <button onClick={this.onClickLike} className="btn btn-primary btn-sm" type="button">
+                <button onClick={()=> this.onClickLike(true)} className="btn btn-primary btn-sm" type="button" style={{margin: '1px 1px 1px 1px'}}>
                   <i className="fa fa-thumbs-o-up"></i>
                 </button>
-                <input className="comment" type="text" placeholder=" Try Typing Something in here.." ref="comment" style={{width: '50%',border: '2px solid #ccc',padding: '0px 0px 100px',margin: '10px 10px 10px 10px', 'border-radius': '6px'}} ></input>
-                <button onClick={this.handleChange} className="btn btn-secondary" type="button" style={{'font-size':'11px','font-weight':'500'}}>
+                <button onClick={()=> this.onClickLike(false)} className="btn btn-primary btn-sm" type="button" style={{margin: '1px 1px 1px 1px'}}>
+                  <i className="fa fa-thumbs-o-down"></i>
+                </button>
+                <input className="comment" type="text" placeholder=" Try Typing Something in here.." ref="comment" style={{width: '50%',border: '2px solid #ccc',padding: '0px 0px 100px',margin: '10px 10px 10px 10px', borderRadius: '6px'}} ></input>
+                <button onClick={this.handleChange} className="btn btn-secondary" type="button" style={{fontSize:'11px',fontWeight:'500'}}>
                   Comment
                 </button>
               </div>
