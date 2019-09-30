@@ -2,15 +2,15 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 
 
-const Navbar=()=>{
+const Navbar=({authUser})=>{
     return (
         <nav className="topbar topbar-inverse topbar-expand-md topbar-sticky">
         <div className="container">
           <div className="topbar-left">
             <button className="topbar-toggler">☰</button>
             <Link className="topbar-brand" to="/">
-              <img className="logo-default" src={`${process.env.PUBLIC_URL}/assets/img/logo.png`} alt="logo" />
-              <img className="logo-inverse" src={`${process.env.PUBLIC_URL}/assets/img/logo-light.png`}  alt="logo" />
+              <img className="logo-default" src={`${process.env.PUBLIC_URL}/assets/img/logo-navbar.png`} alt="logo" />
+              <img className="logo-inverse" src={`${process.env.PUBLIC_URL}/assets/img/logo-white-navbar.png`}  alt="logo" />
             </Link>
           </div>
 
@@ -19,24 +19,32 @@ const Navbar=()=>{
               <li className="nav-item">
                 <Link className="nav-link" to="/">Home</Link>
               </li>
-              <li className="nav-item">
+              {authUser && <li className="nav-item">
                 <Link className="nav-link" to="/articles/create">Write new article</Link>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">Hey Garry!
+              </li> }
+              
+              { authUser && <li className="nav-item">
+                <a className="nav-link" href="#">Hey { authUser.data.name}
                   <i className="fa fa-caret-down" />
                 </a>
                 <div className="nav-submenu">
-                  <a className="nav-link" href="page-login.html">My articles</a>
-                  <a className="nav-link" href>Logout</a>
+                  <Link className="nav-link" to="/">My articles</Link>
+                  <Link className="nav-link" style={{color:"red"}} to="/">Logout</Link>
                 </div>
               </li>
-              <li className="nav-item">
+              }
+              { !authUser && <li className="nav-item">
                 <Link className="nav-link" to="/login">Login</Link>
               </li>
+              }
+              { !authUser &&
               <li className="nav-item">
                 <Link className="nav-link" to="/signup">Signup</Link>
-              </li>
+              </li> }
+              { authUser &&
+              <li className="nav-item">
+                <Link className="nav-link" to="/">Community</Link>
+              </li> }
             </ul>
           </div>
         </div>

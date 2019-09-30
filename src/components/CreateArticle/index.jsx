@@ -14,7 +14,7 @@ const CreateArticle=()=>{
             <div className="container">
               <div className="row">
                 <div className="col-12 col-lg-12">
-                  <form className="p-30 bg-gray rounded" method="POST" data-form="mailer">
+                  <form className="p-30 bg-gray rounded" method="POST" data-form="mailer" accept="image/gif,image/jpeg">
                     <div className="row">
                       <div className="form-group col-md-12 my-5">
                         <input type="file" className="form-control" />

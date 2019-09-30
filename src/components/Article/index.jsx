@@ -8,12 +8,12 @@ const Article=()=>{
         <a href="blog-single.html">New features will add to dashboard soon</a>
       </h3>
       <div className="link-color-default fs-12">
-        <a href="#">News</a>,
-        <time>May 13, 2017</time>
+        <a href="#">Tech</a>,
+        <time>sep 20, 2019</time>
       </div>
     </header>
     <a href="blog-single.html">
-      <img className="rounded" src="assets/img/blog-1.jpg" alt="..." />
+      <img className="rounded" src="assets/img/bg-thunder.jpg" alt="..." />
     </a>
     <div className="card-block">
       <p className="text-justify">Together. Great. So good was saying, that can't first let called air divide stars male isn't i. Herb third let

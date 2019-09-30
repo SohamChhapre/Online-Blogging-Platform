@@ -7,7 +7,7 @@ import axios from 'axios';
 
 import config from '../../config'
 import Axios from 'axios';
-class signup extends Component{
+class Signup extends Component{
    constructor(){
      super();
      this.state={
@@ -50,12 +50,16 @@ class signup extends Component{
   
     if (isvalid){
        console.log(this.state);
-       Axios.post(`${config.apiUrl}/auth/register`,{name:this.state.name,
-      email:this.state.email,
-    password:this.state.password
-     })
+       axios.post(`${config.apiUrl2}/signup`
+       ,{name:this.state.name,
+      id:this.state.email,
+    password:this.state.password}
+     )
      .then(response => {
-         console.log(response);
+         console.log("res"+response);
+         localStorage.setItem('user',JSON.stringify(response.data));
+         this.props.setUser(response.data);
+         console.log(response.data);
          this.props.history.push('/');
        })
        .catch( errors=>{
@@ -73,7 +77,7 @@ class signup extends Component{
   }
   render(){
     return (
-      <div className="mh-fullscreen bg-img center-vh p-20" style={{backgroundImage: 'url(assets/img/bg-girl.jpg)'}}>
+      <div className="mh-fullscreen bg-img center-vh p-20" style={{backgroundImage: 'url(assets/img/bg-signup.gif)'}}>
         <div className="card card-shadowed p-50 w-400 mb-0" style={{maxWidth: '100%'}}>
           <h5 className="text-uppercase text-center">Register</h5>
           <br />
@@ -107,4 +111,4 @@ class signup extends Component{
     )
   }
 }
-export default signup;
+export default Signup;
