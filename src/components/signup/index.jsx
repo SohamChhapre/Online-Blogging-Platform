@@ -60,7 +60,8 @@ class Signup extends Component{
          localStorage.setItem('user',JSON.stringify(response.data));
          this.props.setUser(response.data);
          console.log(response.data);
-         this.props.history.push('/');
+         
+         this.props.history.push('/login');
        })
        .catch( errors=>{
          console.log(errors)

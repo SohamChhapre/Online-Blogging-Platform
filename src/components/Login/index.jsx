@@ -52,6 +52,7 @@ class Login extends Component{
          localStorage.setItem('user',JSON.stringify(response.data));
          this.props.setUser(response.data);
          console.log(response.data);
+         this.props.notyService.success('Successfully logged In!');
          this.props.history.push('/');
        })
        .catch( errors=>{
@@ -60,9 +61,11 @@ class Login extends Component{
 
          if (errors.response && errors.response.status==401){
              formattederrors['email']="Invalid Credentials";
+             this.props.notyService.error('Invalid Email');
          }
          if (errors.response && errors.response.status==400){
            formattederrors['email']="User does not exist's";
+           this.props.notyService.success('User does not exits!');
          }
          
           

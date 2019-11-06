@@ -1,8 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-
-const Navbar=({authUser})=>{
+const Navbar=({authUser,removeauthuser})=>{
     return (
         <nav className="topbar topbar-inverse topbar-expand-md topbar-sticky">
         <div className="container">
@@ -28,8 +27,8 @@ const Navbar=({authUser})=>{
                   <i className="fa fa-caret-down" />
                 </a>
                 <div className="nav-submenu">
-                  <Link className="nav-link" to="/">My articles</Link>
-                  <Link className="nav-link" style={{color:"red"}} to="/">Logout</Link>
+                  <Link className="nav-link" to="/user/articles">My articles</Link>
+                  <Link className="nav-link" style={{color:"red"}}  to="/" onClick={removeauthuser}>Logout</Link>
                 </div>
               </li>
               }
@@ -43,7 +42,7 @@ const Navbar=({authUser})=>{
               </li> }
               { authUser &&
               <li className="nav-item">
-                <Link className="nav-link" to="/">Community</Link>
+                <Link className="nav-link" to="/community">Community</Link>
               </li> }
             </ul>
           </div>

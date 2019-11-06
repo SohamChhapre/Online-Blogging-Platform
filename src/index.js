@@ -10,6 +10,10 @@ import CreateArticle from './components/CreateArticle/index.jsx';
 import Login from './components/Login/index.jsx';
 import SingleArticle from './components/SingleArticle/index.jsx';
 import Signup from './components/signup/index.jsx';
+import config from './config/index';
+import ArticlesService from './Service/article';
+import NotificationsService from './Service/notification'
+import UserArticles from './components/UserArticles/index.jsx';
 // import App from './App';
 const Home=()=>{
     return <h1> this is the home page</h1>
@@ -41,19 +45,29 @@ class App extends Component{
             User:user
         });
     }
+    removeauthuser=()=>{
+        localStorage.removeItem('user');
+        this.props.notyService.success('Successfully logged out!');
+        this.setState({
+            User:null
+        })
+    }
    render(){
        const {location} =this.props;
     return (
         <div>
         {/* <Route path="/" component={App} /> */}
     
-    { location.pathname!=='/login' && location.pathname!=='/signup' && <Navbar authUser={this.state.User} /> }
+    { location.pathname!=='/login' && location.pathname!=='/signup' && <Navbar authUser={this.state.User} removeauthuser={this.removeauthuser} /> }
  
-    <Route exact path="/" component={Welcome} />
+    <Route exact path="/"  render={ (props)=> <Welcome {...props} getarticles={this.props.articlesService.getArticles}/>} />
     <Route path='/signup' render={(props) => <Signup {...props} setUser={this.setUser} /> } />
-    <Route path="/login" render={(props)=> <Login {...props} setUser={this.setUser}/>} />
-    <Route path="/article/:id" component={SingleArticle} />
-    <Route path='/articles/create' component={CreateArticle} />
+    <Route path="/login" render={(props)=> <Login {...props} setUser={this.setUser} notyService={this.props.notyService}/>} />
+    <Route exact path="/article/:id" render={(props)=> <SingleArticle {...props} getSingleArticle={this.props.articlesService.getSingleArticle}/>} />
+    {this.state.User && <Route path='/articles/create' render={ (props)=> <CreateArticle {...props} user={this.state.User} /> } />}
+    <Route exact path="user/article/:id" render={(props)=> <SingleArticle {...props} getSingleArticle={this.props.articlesService.getSingleArticle}/>} />
+    <Route exact path='/community' Component={Welcome} />
+    <Route exact path='/user/articles' render={ (props)=><UserArticles {...props} user={ this.state.User.data.name} getUserArticles={this.props.articlesService.getUserArticles} deleteArticle={this.props.articlesService.deleteArticle}/>}/> 
     { location.pathname!=='/login'  && location.pathname!=='/signup' && <Footer /> }
     </div>
 
@@ -62,7 +76,7 @@ class App extends Component{
 }
 const Main=withRouter((props )=>{
     return (
-        <App {...props} />
+        <App {...props}  articlesService={new ArticlesService()} notyService={new NotificationsService()} />
     )
     
 });
@@ -72,7 +86,4 @@ ReactDOM.render(
     </BrowserRouter>
     , document.getElementById('root'));
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
